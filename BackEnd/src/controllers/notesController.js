@@ -1,9 +1,25 @@
-export function getNotes(req, res) {
-    res.status(200).send('Hello from the backend!'); 
+import Note from '../models/Note.js'
+
+export async function getNotes(req, res) {
+    try{
+        const notes = await Note.find();
+        res.status(200).json(notes); 
+    }catch(error){
+        console.error("Error fetching get all notes:", error.message);
+        res.status(500).json({ meassage: "Server Error" });
+    }
 }
 
-export function createNote(req, res) {
-    res.status(201).send('Note created successfully!');
+export async function createNote(req, res) {
+    try {
+        const { title, content } = req.body; 
+        const newNote = new Note({ title, content }); 
+        const savedNote = await newNote.save(); 
+        res.status(201).json(savedNote); 
+    } catch (error) {
+        console.error('Error creating note:', error.message); 
+        res.status(500).json({ message: 'Server Error' });
+    }
 }   
 
 export function updateNote(req, res) {
