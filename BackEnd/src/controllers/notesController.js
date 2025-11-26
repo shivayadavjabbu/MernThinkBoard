@@ -23,9 +23,23 @@ export async function createNote(req, res) {
 }   
 
 export function updateNote(req, res) {
-    res.status(200).send(`Note with id ${req.params.id} updated successfully!`);
+    try {
+        if (!req.params.id) 
+            throw new Error('Note ID is required');
+        res.status(200).send(`Note with id ${req.params.id} updated successfully!`);    
+    }catch (error) {
+        console.error('Error updating note:', error.message); 
+        res.status(500).json({ message: 'Server Error' });
+    }
 }   
 
 export function deleteNote(req, res) {
-    res.status(200).send(`Note with id ${req.params.id} deleted successfully!`);
+    try {
+        if (!req.params.id)
+            throw new Error('Note ID is required');
+        res.status(200).send(`Note with id ${req.params.id} deleted successfully!`);
+    }catch (error) {
+        console.error('Error deleting note:', error.message);
+        res.status(500).json({ message: 'Server Error' });
+    }
 }
