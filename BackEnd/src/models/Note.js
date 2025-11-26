@@ -17,6 +17,6 @@ const noteSchema = new mongoose.Schema(
 ); 
 
 //2 - create a model
-const Note = mongoose.moodel('Note', noteSchema);
+const Note = mongoose.model('Note', noteSchema);
 
 export default Note;
